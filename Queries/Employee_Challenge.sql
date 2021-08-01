@@ -27,3 +27,26 @@ FROM unique_titles
 GROUP BY title
 ORDER BY COUNT(title) DESC;
 
+-- DERIVABLE 2
+1.
+SELECT emp_no, first_name, last_name, birth_date
+FROM employees
+
+2.
+SELECT from_date, to_date
+FROM dept_emp;
+
+3.
+SELECT title 
+FROM titles;
+
+4. 
+SELECT DISTINCT ON (emp_no) emp.emp_no, emp.first_name, emp.last_name, emp.birth_date, dep.from_date, dep.to_date, t.title
+INTO mentorship_elegibility
+FROM employees AS emp
+INNER JOIN dept_emp AS dep
+ON emp.emp_no = dep.emp_no
+INNER JOIN titles AS t
+ON emp.emp_no = t.emp_no
+WHERE (emp.birth_date BETWEEN '1965-01-01' AND '1965-12-31')
+ORDER BY emp_no 
